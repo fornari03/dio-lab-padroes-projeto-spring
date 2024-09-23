@@ -9,10 +9,16 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(IdDeveSerNulo.class)
-    public ResponseEntity<MensagemErro> handleIdDeveSerNulo(IdDeveSerNulo ex, WebRequest request) {
+    @ExceptionHandler(IdDeveSerNuloException.class)
+    public ResponseEntity<MensagemErro> handleIdDeveSerNulo(IdDeveSerNuloException ex, WebRequest request) {
         MensagemErro mensagemErro = new MensagemErro(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);
+    }
+
+    @ExceptionHandler(ClienteNaoEncontradoException.class)
+    public ResponseEntity<MensagemErro> handleClienteNaoEncontrado(ClienteNaoEncontradoException ex, WebRequest request) {
+        MensagemErro mensagemErro = new MensagemErro(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensagemErro);
     }
 }
 
